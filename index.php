@@ -67,7 +67,7 @@ $hotels = [
         <tbody class="table-group-divider">
             <?php foreach ($hotels as $key => $hotel) { ?>
                 <tr>
-                    <th scope="row"><?php echo $key+1; ?></th>
+                    <th scope="row"><?php echo $key + 1; ?></th>
                     <td><?php echo $hotel['name']; ?></td>
                     <td><?php echo $hotel['description'] ?></td>
                     <td><?php echo ($hotel['parking']) ? "Disponibile" : "Occupato" ?></td>
@@ -77,6 +77,21 @@ $hotels = [
             <?php } ?>
         </tbody>
     </table>
+
+    <form action="index.php" method="GET">
+        <label for="vote-filter">Scegliere il voto del hotel</label>
+        <br>
+        <input type="number" name="vote-filter" id="vote-filter">
+        <br>
+        <br>
+        <label for="parking-filter">Selezionare il parcheggio</label>
+        <br>
+        <select name="parking-filter" id="parking-filter">
+            <option value=""> --Inserire un'opzione-- </option>
+            <option value="true">Incluso</option>
+            <option value="false">Escluso</option>
+        </select>
+    </form>
 </body>
 
 </html>
