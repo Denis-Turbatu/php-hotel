@@ -52,7 +52,21 @@ $hotels = [
 
 <body>
     <?php
-    echo $prova;
+    foreach ($hotels as $cur_hotel) {
+        echo "nome: " . $cur_hotel['name'];
+        echo "<br>";
+        echo "desc: " . $cur_hotel['description'];
+        echo "<br>";
+        echo "park: " . $cur_hotel['parking'];
+        echo "<br>";
+        echo "voto: " . $cur_hotel['vote'];
+        echo "<br>";
+        echo "dist: " . $cur_hotel['distance_to_center'];
+        echo "<br>";
+        echo "<br>";
+        echo "<br>";
+        echo "<br>";
+    }
     ?>
 </body>
 
