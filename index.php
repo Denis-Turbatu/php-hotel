@@ -104,12 +104,14 @@ $hotels = [
             $option_filter = $option_filter === 'true' ? true : false;
             var_dump($option_filter);
             
-            foreach ($hotels as $key => $cur_hotel) {
-                if ($cur_hotel["parking"] == $option_filter) {
+            foreach ($hotels as $cur_hotel) {
+                if ($cur_hotel["parking"] === $option_filter) {
                     $filter_parking[] = $cur_hotel;
                 }
             }
-            echo $filter_parking;
+            foreach ($filter_parking as $filtered_hotel) {
+                echo $filtered_hotel["name"];
+            }
         }
     ?>
 </body>
