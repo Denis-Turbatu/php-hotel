@@ -86,6 +86,7 @@ $hotels = [
     </table>
 
     <form action="index.php" method="GET">
+        <h2 class="text-danger">Lasciare i campi predefiniti se non si vuole impostare filtri</h2>
         <label for="vote-filter">Scegliere il voto del hotel</label>
         <br>
         <select name="parking-filter" id="parking-filter">
@@ -131,24 +132,27 @@ $hotels = [
     </form>
 
     <?php
+    //controllo se filtro parcheggio è applicato
+    $option_filter = isset($_GET["parking-filter"]) ? $_GET["parking-filter"] : null;
+
     // var filtro voto
     $filter_vote = $_GET["vote-filter"];
-    // var filtro parcheggio
-    $option_filter = $_GET["parking-filter"];
+
+    // trasformo un valore string in valore booleano
+    if (isset($option_filter)) {
+        if ($option_filter === 'true') {
+            $option_filter = true;
+        } elseif ($option_filter === 'null') {
+            $option_filter = null;
+        } else {
+            $option_filter = false;
+        }
+    }
 
     // array hotel filtrati per voto
     $filter_vote = [];
     // array hotel filtrati per parcheggio
     $filter_parking = [];
-
-    // trasformo un valore string in valore booleano
-    if ($option_filter === 'true') {
-        $option_filter = true;
-    } elseif ($option_filter === 'null') {
-        $option_filter = null;
-    } else {
-        $option_filter = false;
-    }
 
     // filtro hotel per filtro parcheggio
     foreach ($hotels as $cur_hotel) {
