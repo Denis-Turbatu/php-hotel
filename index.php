@@ -48,26 +48,35 @@ $hotels = [
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hotel</title>
+    <!-- Bootstrap CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 
 <body>
-    <?php
-    foreach ($hotels as $cur_hotel) {
-        echo "nome: " . $cur_hotel['name'];
-        echo "<br>";
-        echo "desc: " . $cur_hotel['description'];
-        echo "<br>";
-        echo "park: " . $cur_hotel['parking'];
-        echo "<br>";
-        echo "voto: " . $cur_hotel['vote'];
-        echo "<br>";
-        echo "dist: " . $cur_hotel['distance_to_center'];
-        echo "<br>";
-        echo "<br>";
-        echo "<br>";
-        echo "<br>";
-    }
-    ?>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nome</th>
+                <th scope="col">Descrizione</th>
+                <th scope="col">Parking</th>
+                <th scope="col">Voto</th>
+                <th scope="col">Distanza dal Centro</th>
+            </tr>
+        </thead>
+        <tbody class="table-group-divider">
+            <?php foreach ($hotels as $cur_hotel) { ?>
+                <tr>
+                    <th scope="row">1</th>
+                    <td><?php echo $cur_hotel['name']; ?></td>
+                    <td><?php echo $cur_hotel['description']?></td>
+                    <td><?php echo $cur_hotel['parking']?></td>
+                    <td><?php echo $cur_hotel['vote']?></td>
+                    <td><?php echo $cur_hotel['distance_to_center']?></td>
+                </tr>
+            <?php } ?>
+        </tbody>
+    </table>
 </body>
 
 </html>
