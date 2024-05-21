@@ -100,20 +100,40 @@ $hotels = [
         if (isset($_GET["parking-filter"])) {
             $filter_parking = [];
             $option_filter = $_GET["parking-filter"];
-            var_dump($option_filter);
             $option_filter = $option_filter === 'true' ? true : false;
-            var_dump($option_filter);
             
             foreach ($hotels as $cur_hotel) {
                 if ($cur_hotel["parking"] === $option_filter) {
                     $filter_parking[] = $cur_hotel;
                 }
             }
-            foreach ($filter_parking as $filtered_hotel) {
-                echo $filtered_hotel["name"];
-            }
-        }
-    ?>
+    ?> 
+    <table class="table w-50">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nome</th>
+                <th scope="col">Descrizione</th>
+                <th scope="col">Parking</th>
+                <th scope="col">Voto</th>
+                <th scope="col">Distanza dal Centro</th>
+            </tr>
+        </thead>
+        <tbody class="table-group-divider">
+            <?php foreach ($filter_parking as $filtered_hotel) { ?>
+                <tr>
+                    <th scope="row"><?php echo $key + 1; ?></th>
+                    <td><?php echo $filtered_hotel["name"]; ?></td>
+                    <td><?php echo $filtered_hotel['description'] ?></td>
+                    <td><?php echo ($filtered_hotel['parking']) ? "Disponibile" : "Occupato" ?></td>
+                    <td><?php echo $filtered_hotel['vote'] ?></td>
+                    <td><?php echo $filtered_hotel['distance_to_center'] ?></td>
+                </tr>
+            <?php } ?>
+        </tbody>
+    </table>
+
+    <?php } ?>
 </body>
 
 </html>
