@@ -87,7 +87,7 @@ $hotels = [
         <label for="parking-filter">Selezionare il parcheggio</label>
         <br>
         <select name="parking-filter" id="parking-filter">
-            <option value=""> --Inserire un'opzione-- </option>
+            <option value="null"> --Inserire un'opzione-- </option>
             <option value="true">Incluso</option>
             <option value="false">Escluso</option>
         </select>
@@ -97,10 +97,15 @@ $hotels = [
     </form>
 
     <?php 
-        if (isset($_GET["parking-filter"])) {
             $filter_parking = [];
             $option_filter = $_GET["parking-filter"];
-            $option_filter = $option_filter === 'true' ? true : false;
+            if ($option_filter === 'true') {
+                $option_filter = true;
+            }elseif($option_filter === 'null'){
+                $option_filter = null;
+            }else{
+                $option_filter = false;
+            }
             
             foreach ($hotels as $cur_hotel) {
                 if ($cur_hotel["parking"] === $option_filter) {
@@ -120,9 +125,9 @@ $hotels = [
             </tr>
         </thead>
         <tbody class="table-group-divider">
-            <?php foreach ($filter_parking as $filtered_hotel) { ?>
+            <?php foreach ($filter_parking as $index => $filtered_hotel) { ?>
                 <tr>
-                    <th scope="row"><?php echo $key + 1; ?></th>
+                    <th scope="row"><?php echo $index + 1; ?></th>
                     <td><?php echo $filtered_hotel["name"]; ?></td>
                     <td><?php echo $filtered_hotel['description'] ?></td>
                     <td><?php echo ($filtered_hotel['parking']) ? "Disponibile" : "Occupato" ?></td>
@@ -132,8 +137,6 @@ $hotels = [
             <?php } ?>
         </tbody>
     </table>
-
-    <?php } ?>
 </body>
 
 </html>
