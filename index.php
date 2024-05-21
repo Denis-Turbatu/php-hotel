@@ -33,7 +33,7 @@ $hotels = [
     [
         'name' => 'Hotel Milano',
         'description' => 'Hotel Milano Descrizione',
-        'parking' => true,
+        'parking' => false,
         'vote' => 2,
         'distance_to_center' => 50
     ],
@@ -89,7 +89,7 @@ $hotels = [
         <h2 class="text-danger">Lasciare i campi predefiniti se non si vuole impostare filtri</h2>
         <label for="vote-filter">Scegliere il voto del hotel</label>
         <br>
-        <select name="parking-filter" id="parking-filter">
+        <select name="vote-filter" id="vote-filter">
             <option value="null"> --Inserire un'opzione-- </option>
             <option value="1">
                 <span>&#9733;</span>
@@ -134,9 +134,9 @@ $hotels = [
     <?php
     //controllo se filtro parcheggio è applicato
     $option_filter = isset($_GET["parking-filter"]) ? $_GET["parking-filter"] : null;
+    //controllo se filtro voto è applicato
+    $vote_filter = isset($_GET["vote-filter"]) ? $_GET["vote-filter"] : null;
 
-    // var filtro voto
-    $filter_vote = $_GET["vote-filter"];
 
     // trasformo un valore string in valore booleano
     if (isset($option_filter)) {
@@ -149,16 +149,40 @@ $hotels = [
         }
     }
 
+    // trasformo un valore string in valore null o intero
+    if (isset($vote_filter)) {
+        if ($vote_filter === 'null') {
+            $vote_filter = null;
+        }else {
+            $vote_filter = (int) $vote_filter;
+        }
+    }
+
+
     // array hotel filtrati per voto
     $filter_vote = [];
     // array hotel filtrati per parcheggio
     $filter_parking = [];
 
+     // filtro hotel per filtro voto
+    foreach ($hotels as $cur_vote) {
+        if ($vote_filter === null) {
+            $filter_vote[] = $cur_vote;
+        }elseif ($cur_vote["vote"] === $vote_filter) {
+            $filter_vote[] = $cur_vote;
+        }
+    }
     // filtro hotel per filtro parcheggio
-    foreach ($hotels as $cur_hotel) {
-        if ($cur_hotel["parking"] === $option_filter) {
+    foreach ($filter_vote as $cur_hotel) {
+        if($option_filter === null){
+            $filter_parking[] = $cur_hotel;
+        }elseif ($cur_hotel["parking"] === $option_filter) {
             $filter_parking[] = $cur_hotel;
         }
+    }
+
+    if($option_filter === null && $vote_filter === null){
+        $filter_parking = [];
     }
     ?>
     <table class="table w-50">
