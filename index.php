@@ -91,7 +91,27 @@ $hotels = [
             <option value="true">Incluso</option>
             <option value="false">Escluso</option>
         </select>
+        <br>
+        <br>
+        <button type="submit">Invia</button>
     </form>
+
+    <?php 
+        if (isset($_GET["parking-filter"])) {
+            $filter_parking = [];
+            $option_filter = $_GET["parking-filter"];
+            var_dump($option_filter);
+            $option_filter = $option_filter === 'true' ? true : false;
+            var_dump($option_filter);
+            
+            foreach ($hotels as $key => $cur_hotel) {
+                if ($cur_hotel["parking"] == $option_filter) {
+                    $filter_parking[] = $cur_hotel;
+                }
+            }
+            echo $filter_parking;
+        }
+    ?>
 </body>
 
 </html>
