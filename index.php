@@ -65,14 +65,14 @@ $hotels = [
             </tr>
         </thead>
         <tbody class="table-group-divider">
-            <?php foreach ($hotels as $cur_hotel) { ?>
+            <?php foreach ($hotels as $key => $hotel) { ?>
                 <tr>
-                    <th scope="row">1</th>
-                    <td><?php echo $cur_hotel['name']; ?></td>
-                    <td><?php echo $cur_hotel['description']?></td>
-                    <td><?php echo $cur_hotel['parking']?></td>
-                    <td><?php echo $cur_hotel['vote']?></td>
-                    <td><?php echo $cur_hotel['distance_to_center']?></td>
+                    <th scope="row"><?php echo $key+1; ?></th>
+                    <td><?php echo $hotel['name']; ?></td>
+                    <td><?php echo $hotel['description'] ?></td>
+                    <td><?php echo $hotel['parking'] ?></td>
+                    <td><?php echo $hotel['vote'] ?></td>
+                    <td><?php echo $hotel['distance_to_center'] ?></td>
                 </tr>
             <?php } ?>
         </tbody>
