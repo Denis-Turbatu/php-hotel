@@ -71,7 +71,14 @@ $hotels = [
                     <td><?php echo $hotel['name']; ?></td>
                     <td><?php echo $hotel['description'] ?></td>
                     <td><?php echo ($hotel['parking']) ? "Disponibile" : "Occupato" ?></td>
-                    <td><?php echo $hotel['vote'] ?></td>
+                    <td>
+                        <?php 
+                            $i = 0;
+                            for ($i=0; $i < $hotel['vote']; $i++) { 
+                                echo "<span>&#9733;</span>";
+                            } 
+                        ?>
+                    </td>
                     <td><?php echo $hotel['distance_to_center'] ?></td>
                 </tr>
             <?php } ?>
@@ -81,7 +88,34 @@ $hotels = [
     <form action="index.php" method="GET">
         <label for="vote-filter">Scegliere il voto del hotel</label>
         <br>
-        <input type="number" name="vote-filter" id="vote-filter">
+        <select name="parking-filter" id="parking-filter">
+            <option value="null"> --Inserire un'opzione-- </option>
+            <option value="1">
+                <span>&#9733;</span>
+            </option>
+            <option value="2">
+                <span>&#9733;</span>
+                <span>&#9733;</span>
+            </option>
+            <option value="3">
+                <span>&#9733;</span>
+                <span>&#9733;</span>
+                <span>&#9733;</span>
+            </option>
+            <option value="4">
+                <span>&#9733;</span>
+                <span>&#9733;</span>
+                <span>&#9733;</span>
+                <span>&#9733;</span>
+            </option>
+            <option value="5">
+                <span>&#9733;</span>
+                <span>&#9733;</span>
+                <span>&#9733;</span>
+                <span>&#9733;</span>
+                <span>&#9733;</span>
+            </option>
+        </select>
         <br>
         <br>
         <label for="parking-filter">Selezionare il parcheggio</label>
@@ -96,23 +130,33 @@ $hotels = [
         <button type="submit">Invia</button>
     </form>
 
-    <?php 
-            $filter_parking = [];
-            $option_filter = $_GET["parking-filter"];
-            if ($option_filter === 'true') {
-                $option_filter = true;
-            }elseif($option_filter === 'null'){
-                $option_filter = null;
-            }else{
-                $option_filter = false;
-            }
-            
-            foreach ($hotels as $cur_hotel) {
-                if ($cur_hotel["parking"] === $option_filter) {
-                    $filter_parking[] = $cur_hotel;
-                }
-            }
-    ?> 
+    <?php
+    // var filtro voto
+    $filter_vote = $_GET["vote-filter"];
+    // var filtro parcheggio
+    $option_filter = $_GET["parking-filter"];
+
+    // array hotel filtrati per voto
+    $filter_vote = [];
+    // array hotel filtrati per parcheggio
+    $filter_parking = [];
+
+    // trasformo un valore string in valore booleano
+    if ($option_filter === 'true') {
+        $option_filter = true;
+    } elseif ($option_filter === 'null') {
+        $option_filter = null;
+    } else {
+        $option_filter = false;
+    }
+
+    // filtro hotel per filtro parcheggio
+    foreach ($hotels as $cur_hotel) {
+        if ($cur_hotel["parking"] === $option_filter) {
+            $filter_parking[] = $cur_hotel;
+        }
+    }
+    ?>
     <table class="table w-50">
         <thead>
             <tr>
